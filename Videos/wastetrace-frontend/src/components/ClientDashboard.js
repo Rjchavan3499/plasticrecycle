@@ -1,100 +1,141 @@
-import React from "react";
-import "../styles/ClientDashboard.css"; // Separate CSS file
+import React, { useState } from "react";
+import "../styles/ClientDashboard.css";
 
-const ClientDashboard = () => {
-  const ordersSummary = {
-    total: 24,
-    inProgress: 8,
-    completed: 14,
-    cancelled: 2,
+const Dashboard = () => {
+  const [activeTab, setActiveTab] = useState("orders");
+  const [chartType, setChartType] = useState("line");
+
+  // Dummy data for Orders
+  const renderOrdersSummary = () => {
+    const totalOrders = 100;
+    const inProgress = 30;
+    const completed = 50;
+    const cancelled = 20;
+
+    return (
+      <div className="orders-summary-widget">
+        <div className="stat-card">
+          <h4>Total Orders</h4>
+          <p>{totalOrders}</p>
+        </div>
+        <div className="stat-card">
+          <h4>In Progress</h4>
+          <p>{inProgress}</p>
+        </div>
+        <div className="stat-card">
+          <h4>Completed</h4>
+          <p>{completed}</p>
+        </div>
+        <div className="stat-card">
+          <h4>Cancelled</h4>
+          <p>{cancelled}</p>
+        </div>
+      </div>
+    );
   };
 
-  const orders = [
-    {
-      id: "ORD-001",
-      status: "In Progress",
-      pickup: "Mumbai",
-      destination: "Pune",
-      date: "2025-04-26",
-      time: "10:00 AM",
-      vendor: "EcoVendor Pvt Ltd",
-      weight: 120,
-      carbonCredits: 15,
-    },
-    {
-      id: "ORD-002",
-      status: "Completed",
-      pickup: "Delhi",
-      destination: "Noida",
-      date: "2025-04-25",
-      time: "2:30 PM",
-      vendor: "GreenTrans Ltd",
-      weight: 200,
-      carbonCredits: 25,
-    },
-    {
-      id: "ORD-003",
-      status: "Cancelled",
-      pickup: "Chennai",
-      destination: "Bangalore",
-      date: "2025-04-24",
-      time: "4:00 PM",
-      vendor: "RecycleNow",
-      weight: 80,
-      carbonCredits: 0,
-    },
-  ];
+  const renderContent = () => {
+    switch (activeTab) {
+      case "orders":
+        return (
+          <div>
+            {renderOrdersSummary()}
+            <h4>Order Details</h4>
+            <div className="orders-table">
+              <div className="order-detail">
+                <p><strong>Order ID:</strong> ORD001</p>
+                <p><strong>Status:</strong> <span className="status-tag in-progress">In Progress</span></p>
+                <p><strong>Pickup → Destination:</strong> Location A → Location B</p>
+                <p><strong>Order Date:</strong> 2025-04-25 14:32</p>
+                <p><strong>Assigned Vendor:</strong> Vendor A</p>
+              </div>
+            </div>
+          </div>
+        );
+      case "carbon":
+        return (
+          <div className="client-dashboard-menu">
+            <h3>Carbon Footprint</h3>
+            <h4>Select Graph Type</h4>
+            <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
+              <option value="line">Line Chart</option>
+              <option value="pie">Pie Chart</option>
+              <option value="volume">Volume Chart</option>
+            </select>
+            <div className="chart-container">
+              <div className="dummy-graph">
+                <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
+                <div className={`graph ${chartType}`}></div>
+              </div>
+            </div>
+          </div>
+        );
+      case "analytics":
+        return (
+          <div className="client-dashboard-menu">
+            <h3>Analytics</h3>
+            <div className="analytics-item">
+              <h4>Plastic Recycled</h4>
+              <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="volume">Volume Chart</option>
+              </select>
+              <div className="chart-container">
+                <div className="dummy-graph">
+                  <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
+                  <div className={`graph ${chartType}`}></div>
+                </div>
+              </div>
+            </div>
+            <div className="analytics-item">
+              <h4>CO₂ Reduction</h4>
+              <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="volume">Volume Chart</option>
+              </select>
+              <div className="chart-container">
+                <div className="dummy-graph">
+                  <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
+                  <div className={`graph ${chartType}`}></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      case "esg":
+        return (
+          <div className="client-dashboard-menu">
+            <h3>ESG Tracking</h3>
+            <div className="esg-item">
+              <h4>Current ESG Score</h4>
+              <p>92%</p>
+            </div>
+            <div className="esg-item">
+              <h4>Previous Year Target</h4>
+              <p>85%</p>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="client-dashboard-container">
-      {/* Header */}
-      <div className="client-dashboard-header">
-        <h2>Orders</h2>
-        <div className="header-icons">
-          <i className="fas fa-search"></i>
-          <i className="fas fa-filter"></i>
-        </div>
+      <h2>Welcome to Client Dashboard</h2>
+      <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginBottom: "2rem" }}>
+        <button className="tab-button orders-button" onClick={() => setActiveTab("orders")}>Orders</button>
+        <button className="tab-button analytics-button" onClick={() => setActiveTab("analytics")}>Analytics</button>
+        <button className="tab-button carbon-button" onClick={() => setActiveTab("carbon")}>Carbon Footprint</button>
+        <button className="tab-button esg-button" onClick={() => setActiveTab("esg")}>ESG Tracking</button>
       </div>
 
-      {/* Summary Cards */}
-      <div className="summary-cards">
-        <div className="summary-card">
-          <h3>Total Orders</h3>
-          <p>{ordersSummary.total}</p>
-        </div>
-        <div className="summary-card">
-          <h3>In Progress</h3>
-          <p>{ordersSummary.inProgress}</p>
-        </div>
-        <div className="summary-card">
-          <h3>Completed</h3>
-          <p>{ordersSummary.completed}</p>
-        </div>
-        <div className="summary-card">
-          <h3>Cancelled</h3>
-          <p>{ordersSummary.cancelled}</p>
-        </div>
-      </div>
-
-      {/* Orders List */}
-      <div className="orders-list">
-        {orders.map((order) => (
-          <div className="order-card" key={order.id}>
-            <div className="order-card-header">
-              <h3>{order.id}</h3>
-              <span className={`status-tag ${order.status.replace(/\s+/g, "-").toLowerCase()}`}>
-                {order.status}
-              </span>
-            </div>
-            <p><strong>From:</strong> {order.pickup} → <strong>To:</strong> {order.destination}</p>
-            <p><strong>Date:</strong> {order.date} | <strong>Time:</strong> {order.time}</p>
-            <p><strong>Vendor:</strong> {order.vendor}</p>
-            <p><strong>Weight:</strong> {order.weight} kg | <strong>Carbon Credits:</strong> {order.carbonCredits}</p>
-          </div>
-        ))}
-      </div>
+      {renderContent()}
     </div>
   );
 };
 
-export default ClientDashboard;
+export default Dashboard;

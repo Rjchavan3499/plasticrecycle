@@ -1,3 +1,4 @@
+import "../styles/Dashboard.css";
 import React, { useState } from "react";
 import { Doughnut, Line, Bar } from "react-chartjs-2";
 import {
@@ -12,7 +13,7 @@ import {
   LineElement,
   BarElement
 } from "chart.js";
-import "../styles/Dashboard.css";
+
 
 ChartJS.register(
   Title,
