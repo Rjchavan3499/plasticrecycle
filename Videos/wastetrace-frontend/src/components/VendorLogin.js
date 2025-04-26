@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "../styles/Dashboard.css";
+import "../styles/Auth.css"; // Assuming you have an Auth.css
 
 const VendorLogin = () => {
   const [mobile, setMobile] = useState("");
@@ -14,26 +14,26 @@ const VendorLogin = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="auth-container">
       <h2>Vendor Login</h2>
-      <form className="menu-item" onSubmit={handleLogin}>
+      <form onSubmit={handleLogin}>
         <input
           type="text"
           placeholder="Mobile Number"
+          required
           value={mobile}
           onChange={(e) => setMobile(e.target.value)}
-          required
         />
         <input
           type="password"
           placeholder="Password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
         />
         <button type="submit">Login</button>
-        <p style={{ marginTop: "1rem" }}>
-          Don't have an account? <Link to="/vendor-register">Register here</Link>
+        <p>
+          Don't have an account? <Link to="/client-register">Register</Link>
         </p>
       </form>
     </div>
