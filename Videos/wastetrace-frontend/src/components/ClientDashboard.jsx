@@ -1,7 +1,33 @@
 import React, { useState } from "react";
 import "../styles/ClientDashboard.css";
+import { Line, Bar, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+} from "chart.js";
 
-const Dashboard = () => {
+// Register chart elements
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement
+);
+
+const ClientDashboard = () => {
   const [activeTab, setActiveTab] = useState("orders");
   const [chartType, setChartType] = useState("line");
 
@@ -34,6 +60,42 @@ const Dashboard = () => {
     );
   };
 
+  // Dummy data for charts
+  const carbonData = {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    datasets: [
+      {
+        label: "CO₂ Reduction (kg)",
+        data: [10, 20, 30, 40, 50, 60],
+        fill: false,
+        borderColor: "#4caf50",
+        tension: 0.3,
+      },
+    ],
+  };
+
+  const recycledData = {
+    labels: ["Plastic A", "Plastic B", "Plastic C"],
+    datasets: [
+      {
+        label: "Weight (kg)",
+        data: [15, 25, 40],
+        backgroundColor: "#2196f3",
+      },
+    ],
+  };
+
+  const recyclingProgressData = {
+    labels: ["Recycled", "Pending"],
+    datasets: [
+      {
+        data: [70, 30],
+        backgroundColor: ["#4caf50", "#f44336"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
   const renderContent = () => {
     switch (activeTab) {
       case "orders":
@@ -55,8 +117,6 @@ const Dashboard = () => {
       case "carbon":
         return (
           <div className="client-dashboard-menu">
-            <h3>Carbon Footprint</h3>
-            <h4>Select Graph Type</h4>
             <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
               <option value="line">Line Chart</option>
               <option value="pie">Pie Chart</option>
@@ -65,7 +125,10 @@ const Dashboard = () => {
             <div className="chart-container">
               <div className="dummy-graph">
                 <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
-                <div className={`graph ${chartType}`}></div>
+                {/* Conditionally render the chart type */}
+                {chartType === "line" && <Line data={carbonData} />}
+                {chartType === "pie" && <Doughnut data={recyclingProgressData} />}
+                {chartType === "volume" && <Bar data={recycledData} />}
               </div>
             </div>
           </div>
@@ -73,7 +136,6 @@ const Dashboard = () => {
       case "analytics":
         return (
           <div className="client-dashboard-menu">
-            <h3>Analytics</h3>
             <div className="analytics-item">
               <h4>Plastic Recycled</h4>
               <select value={chartType} onChange={(e) => setChartType(e.target.value)}>
@@ -84,7 +146,10 @@ const Dashboard = () => {
               <div className="chart-container">
                 <div className="dummy-graph">
                   <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
-                  <div className={`graph ${chartType}`}></div>
+                  {/* Conditionally render the chart type */}
+                  {chartType === "line" && <Line data={carbonData} />}
+                  {chartType === "pie" && <Doughnut data={recyclingProgressData} />}
+                  {chartType === "volume" && <Bar data={recycledData} />}
                 </div>
               </div>
             </div>
@@ -98,7 +163,10 @@ const Dashboard = () => {
               <div className="chart-container">
                 <div className="dummy-graph">
                   <p>{chartType.charAt(0).toUpperCase() + chartType.slice(1)} Graph</p>
-                  <div className={`graph ${chartType}`}></div>
+                  {/* Conditionally render the chart type */}
+                  {chartType === "line" && <Line data={carbonData} />}
+                  {chartType === "pie" && <Doughnut data={recyclingProgressData} />}
+                  {chartType === "volume" && <Bar data={recycledData} />}
                 </div>
               </div>
             </div>
@@ -138,4 +206,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ClientDashboard;
