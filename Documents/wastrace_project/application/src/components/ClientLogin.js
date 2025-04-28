@@ -12,7 +12,7 @@ const Login = () => {
     console.log("Mobile:", mobile);
     console.log("Password:", password);
     alert("Login Successful!");
-    navigate("/ClientDashboard");
+    navigate("/client-dashboard");
   };
 
   return (
@@ -36,7 +36,7 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
-        <p>Don't have an account? <Link to="/register">Register</Link></p>
+        <p>Don't have an account? <Link to="/client-register">Register</Link></p>
       </form>
     </div>
   );

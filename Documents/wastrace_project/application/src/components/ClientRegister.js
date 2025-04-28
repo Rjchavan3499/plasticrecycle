@@ -63,7 +63,7 @@ const Register = () => {
         />
         <button type="submit">Register</button>
         <p>
-          Already registered? <Link to="/">Login</Link>
+          Already registered? <Link to="/client-login">Login</Link>
         </p>
       </form>
     </div>

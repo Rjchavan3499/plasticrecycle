@@ -4,7 +4,7 @@ import "../styles/Auth.css";
 
 const Login = () => {
   const [mobile, setMobile] = useState("");
-  const [password, setPassword] = useState(""); // Keep this if you plan to use it
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
@@ -12,7 +12,7 @@ const Login = () => {
     console.log("Mobile:", mobile);
     console.log("Password:", password);
     alert("Login Successful!");
-    navigate("/VendorDashboard");
+    navigate("/vendor-dashboard"); // make sure your route is /vendor-dashboard
   };
 
   return (
@@ -36,7 +36,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
-        <p>Don't have an account? <Link to="/register">Register</Link></p>
+        <p>
+          Don't have an account? <Link to="/vendor-register">Register</Link>
+        </p>
       </form>
     </div>
   );

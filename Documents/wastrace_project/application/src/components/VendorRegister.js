@@ -20,7 +20,7 @@ const Register = () => {
     e.preventDefault();
     alert("Registration Successful!");
     console.log("Registered Vendor:", vendor);
-    navigate("/VendorLogin");
+    navigate("/vendor-login");  // Corrected (small letters)
   };
 
   return (
@@ -63,7 +63,7 @@ const Register = () => {
         />
         <button type="submit">Register</button>
         <p>
-          Already registered? <Link to="/">Login</Link>
+          Already registered? <Link to="/vendor-login">Login</Link> {/* Corrected */}
         </p>
       </form>
     </div>
